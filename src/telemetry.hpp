@@ -1,7 +1,4 @@
-// telemetry.hpp
-// Reads numbers about the PC
-// Step 1: RAM % in use.
-
+// currently just the ram data.
 #pragma once
 
 namespace gh {
@@ -11,4 +8,4 @@ namespace gh {
 // (Not 0: 0 % is a real answer, so it cannot also mean "failed".)
 int get_ram_percent();
 
-} // namespace gh
+} // ending namespace gh

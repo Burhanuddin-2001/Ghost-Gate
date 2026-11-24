@@ -1,6 +1,3 @@
-// process_manager.cpp
-// The real work behind ProcessManager.
-
 #include "process_manager.hpp"
 #include "win_handle.hpp"   // our RAII UniqueHandle
 
@@ -116,4 +113,4 @@ uint32_t ProcessManager::restart(const std::wstring& name,
     return launch(exePath);
 }
 
-}
+} //ending gh namespace block

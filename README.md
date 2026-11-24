@@ -23,7 +23,7 @@ GhostGate fixes this: a second, independent control channel to the PC.
 - RAII + smart pointers for all Windows handles and memory. No leaks.
 - Zero hosting cost (goal). STUN servers discover each peer's public address and ICE connectivity checks handle the hole-punching.
 - Launch GUI apps in the active desktop (this avoid Session 0 service isolation).
-- From Phase 6 (P2P over internet), traffic is encrypted: WebRTC DataChannels use DTLS end-to-end.
+- (P2P over internet), traffic is encrypted: WebRTC DataChannels use DTLS end-to-end.
 
 ## Tech stack
 - Language: C++20
@@ -45,6 +45,7 @@ ghostgate.exe kill <PID>               → kill that one process
 ghostgate.exe launch <path>            → start a program, print its PID
 ghostgate.exe restart <name> <path>    → kill all copies, launch fresh
 ghostgate.exe ram                      → print RAM % in use
+ghostgate.exe screenshot <jpg> [width] → save the whole screen as a JPEG file
 ```
 
 ## How to build (now)
@@ -64,7 +65,7 @@ compiler. If it finds none, it prints an error and stops.
 ## Build order (phases)
 1. C++ memory, RAII, smart pointers.
 2. ProcessManager: list, kill, launch apps.
-3. Telemetry: read CPU and RAM. (Current step)
-4. ScreenCapture: grab screen to memory, compress.
+3. Telemetry: read CPU and RAM. (CPU is pending)
+4. ScreenCapture: grab screen to memory, compress. (Currently here.)
 5. Local web dashboard: control from phone on same Wi-Fi.
 6. P2P over internet: STUN / WebRTC.

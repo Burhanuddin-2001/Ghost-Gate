@@ -21,7 +21,7 @@ if not defined VSPATH (
 
 call "%VSPATH%\VC\Auxiliary\Build\vcvars64.bat" >nul 2>&1
 if not exist build mkdir build
-cl /nologo /std:c++20 /EHsc /W4 src\main.cpp src\process_manager.cpp src\telemetry.cpp /Fe:build\ghostgate.exe /Fo:build\
+cl /nologo /std:c++20 /EHsc /W4 src\main.cpp src\process_manager.cpp src\telemetry.cpp src\screen_capture.cpp /Fe:build\ghostgate.exe /Fo:build\ /link windowscodecs.lib ole32.lib oleaut32.lib gdi32.lib user32.lib
 if errorlevel 1 (
     echo --- build FAILED, see errors above ---
     exit /b 1

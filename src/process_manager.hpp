@@ -1,5 +1,3 @@
-// process_manager.hpp
-
 #pragma once
 
 #include <string>
@@ -38,4 +36,4 @@ public:
     uint32_t restart(const std::wstring& name, const std::wstring& exePath) const;
 };
 
-} // namespace gh
+} // ending namespace gh

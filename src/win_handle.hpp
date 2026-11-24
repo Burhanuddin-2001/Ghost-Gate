@@ -1,5 +1,4 @@
-// win_handle.hpp
-#pragma once          // tell the compiler: include this file only once
+#pragma once          // tell the compiler: include this file only once (important)
 
 #include <windows.h>  // gives us HANDLE, CloseHandle, INVALID_HANDLE_VALUE
 #include <memory>     // gives us std::unique_ptr
@@ -21,4 +20,4 @@ struct HandleDeleter {
 // A HANDLE is secretly a void*, so unique_ptr<void, ...> fits it.
 using UniqueHandle = std::unique_ptr<void, HandleDeleter>;
 
-} // namespace gh
+} // ending namespace gh

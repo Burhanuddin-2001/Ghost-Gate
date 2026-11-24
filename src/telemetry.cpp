@@ -1,5 +1,3 @@
-// telemetry.cpp
-
 #include "telemetry.hpp"
 
 #include <windows.h>
@@ -16,4 +14,4 @@ int get_ram_percent() {
     return static_cast<int>(ms.dwMemoryLoad);  // DWORD -> int
 }   // ms is freed here, at '}'. No handle, nothing to close.
 
-} // namespace gh
+} //ending gh

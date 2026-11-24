@@ -1,13 +1,38 @@
-// main.cpp
-
+#include <windows.h>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include "process_manager.hpp"
+#include "screen_capture.hpp"
 #include "telemetry.hpp"
 
 // wmain = main that takes wide text arguments (Windows names are wide).
 int wmain(int argc, wchar_t* argv[]) {
+    // Capture real pixels on high-DPI screens instead of a scaled-down image.
+    SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+
     gh::ProcessManager pm;
+
+    // screenshot <file.jpg> [max-width]
+    if ((argc == 3 || argc == 4) && std::wstring(argv[1]) == L"screenshot") {
+        int max_width = (argc == 4) ? std::stoi(argv[3]) : 0;
+        std::string why;
+        auto shot = gh::capture_screen_jpeg(max_width, 0.8f, &why);
+        if (!shot) {
+            std::wcout << L"Screenshot failed: " << std::wstring(why.begin(), why.end()) << L"\n";
+            return 1;
+        }
+        std::ofstream file(argv[2], std::ios::binary);
+        file.write(reinterpret_cast<const char*>(shot->jpeg.data()),
+                   static_cast<std::streamsize>(shot->jpeg.size()));
+        if (!file) {
+            std::wcout << L"Could not write " << argv[2] << L".\n";
+            return 1;
+        }
+        std::wcout << L"Saved " << shot->width << L"x" << shot->height << L" screenshot ("
+                   << shot->jpeg.size() << L" bytes) to " << argv[2] << L".\n";
+        return 0;
+    }
 
     if (argc == 3) {
         std::wstring cmd = argv[1];
