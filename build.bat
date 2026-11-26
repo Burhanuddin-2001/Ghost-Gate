@@ -21,10 +21,13 @@ if not defined VSPATH (
 
 call "%VSPATH%\VC\Auxiliary\Build\vcvars64.bat" >nul 2>&1
 if not exist build mkdir build
-cl /nologo /std:c++20 /EHsc /W4 src\main.cpp src\process_manager.cpp src\telemetry.cpp src\screen_capture.cpp /Fe:build\ghostgate.exe /Fo:build\ /link windowscodecs.lib ole32.lib oleaut32.lib gdi32.lib user32.lib
+rem WIN32_LEAN_AND_MEAN keeps windows.h from pulling in old winsock.h (clashes with winsock2.h).
+cl /nologo /std:c++20 /EHsc /W4 /DWIN32_LEAN_AND_MEAN /DNOMINMAX src\main.cpp src\process_manager.cpp src\telemetry.cpp src\screen_capture.cpp src\util.cpp src\http.cpp src\http_server.cpp src\controller.cpp src\app.cpp /Fe:build\ghostgate.exe /Fo:build\ /link ws2_32.lib windowscodecs.lib ole32.lib oleaut32.lib gdi32.lib user32.lib
 if errorlevel 1 (
     echo --- build FAILED, see errors above ---
     exit /b 1
 )
+rem "ghostgate serve" loads the dashboard from a web folder next to the exe.
+xcopy /e /i /y /q web build\web >nul
 echo --- build OK, running ---
 build\ghostgate.exe

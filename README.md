@@ -45,8 +45,25 @@ ghostgate.exe kill <PID>               → kill that one process
 ghostgate.exe launch <path>            → start a program, print its PID
 ghostgate.exe restart <name> <path>    → kill all copies, launch fresh
 ghostgate.exe ram                      → print RAM % in use
+ghostgate.exe cpu                      → print CPU % in use (sampled over 1 second)
 ghostgate.exe screenshot <jpg> [width] → save the whole screen as a JPEG file
+ghostgate.exe serve [--port <n>] [--bind <ipv4>] [--target <name.exe>] [--target-path <exe>] [--web-dir <dir>]    → start the local web dashboard
 ```
+
+### Web dashboard
+- Open `http://127.0.0.1:<port>/` on the PC. By default (currently!) it only listens on localhost.
+- Shows the target as Running or Dead, with its PIDs.
+- Shows live CPU % and RAM %, refreshed every 3 seconds.
+- **Restart** button: kills the target and launches it again. It only appears when
+  `--target-path` is given, and it asks for confirmation first.
+- **Grab Screen** button: captures the desktop, scaled to the phone's width, and shows
+  it with a link to the full-size image.
+- API: `GET /api/status`, `POST /api/restart`, `GET /api/screenshot?width=<n>`.
+  Requests must carry an `X-Requested-With` header.
+
+### Not working yet
+- **No password.** On home wifi LAN, the portal can be accessed from any device. It will show a warning (just dismissed that).
+- **No internet access.** P2P (STUN / WebRTC) is not built. Currently the dashboard only works on local network.
 
 ## How to build (now)
 Requirements:
@@ -65,7 +82,7 @@ compiler. If it finds none, it prints an error and stops.
 ## Build order (phases)
 1. C++ memory, RAII, smart pointers.
 2. ProcessManager: list, kill, launch apps.
-3. Telemetry: read CPU and RAM. (CPU is pending)
-4. ScreenCapture: grab screen to memory, compress. (Currently here.)
-5. Local web dashboard: control from phone on same Wi-Fi.
+3. Telemetry: read CPU and RAM.
+4. ScreenCapture: grab screen to memory, compress.
+5. Local web dashboard: control from phone on same Wi-Fi. (Dashboard is ready.)
 6. P2P over internet: STUN / WebRTC.

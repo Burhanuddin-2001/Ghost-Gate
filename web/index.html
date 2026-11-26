@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>GhostGate</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <h1>GhostGate</h1>
+  </header>
+
+  <main>
+    <div class="card" id="target-card">
+      <div class="row">
+        <h2 id="target-name">Target</h2>
+        <span id="target-state" class="pill">…</span>
+      </div>
+      <p id="target-pids" class="muted"></p>
+      <button id="restart" class="primary" type="button">Restart app</button>
+      <p id="restart-msg" class="muted" role="status"></p>
+    </div>
+
+    <div class="card">
+      <h2>System</h2>
+      <div class="meter">
+        <div class="row"><span>CPU</span><span id="cpu-value">–</span></div>
+        <div class="bar"><div id="cpu-bar"></div></div>
+      </div>
+      <div class="meter">
+        <div class="row"><span>RAM</span><span id="ram-value">–</span></div>
+        <div class="bar"><div id="ram-bar"></div></div>
+      </div>
+      <p id="updated" class="muted"></p>
+    </div>
+
+    <div class="card">
+      <div class="row">
+        <h2>Screen</h2>
+        <button id="grab" type="button">Grab screen</button>
+      </div>
+      <p id="shot-msg" class="muted" role="status">Tap “Grab screen” to see the desktop.</p>
+      <a id="shot-link" target="_blank" rel="noopener" hidden>
+        <img id="shot" alt="Screenshot of the PC desktop">
+      </a>
+    </div>
+  </main>
+</body>
+</html>

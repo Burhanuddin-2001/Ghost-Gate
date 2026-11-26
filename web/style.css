@@ -1,0 +1,131 @@
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1c1e21;
+  --muted: #65676b;
+  --border: #dfe1e5;
+  --accent: #2563eb;
+  --accent-text: #ffffff;
+  --ok: #15803d;
+  --ok-bg: #dcfce7;
+  --bad: #b91c1c;
+  --bad-bg: #fee2e2;
+  --bar: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317;
+    --card: #1b1e24;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --border: #2c3038;
+    --accent: #3b82f6;
+    --ok: #4ade80;
+    --ok-bg: #12301f;
+    --bad: #f87171;
+    --bad-bg: #3a1717;
+    --bar: #2c3038;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+[hidden] { display: none !important; }
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card);
+}
+.topbar h1 { margin: 0; font-size: 1.15rem; }
+
+main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.card h2 { margin: 0 0 8px; font-size: 1.05rem; }
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.row h2 { margin: 0; overflow-wrap: anywhere; }
+
+.muted { color: var(--muted); font-size: 0.9rem; margin: 8px 0 0; }
+
+button {
+  font: inherit;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  min-height: 44px;   /* comfortable touch target */
+}
+button:disabled { opacity: 0.6; cursor: progress; }
+button.primary {
+  width: 100%;
+  margin-top: 12px;
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+  font-weight: 600;
+}
+
+.pill {
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--bar);
+  white-space: nowrap;
+}
+.pill.ok  { background: var(--ok-bg);  color: var(--ok); }
+.pill.bad { background: var(--bad-bg); color: var(--bad); }
+
+.meter { margin-top: 12px; }
+.bar {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--bar);
+  overflow: hidden;
+  margin-top: 4px;
+}
+.bar > div {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+#shot-link { display: block; margin-top: 12px; }
+#shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
